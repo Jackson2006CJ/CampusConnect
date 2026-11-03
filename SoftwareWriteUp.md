@@ -1,37 +1,21 @@
-CampusConnect – Student Resource Management System
+CampusConnect – Student Resource Management and AI Support System
 
-CampusConnect is a student resource management system designed to centralize academic 
-information, assignment tracking, and campus communication within a unified software 
-environment. It provides continuous access to course data, deadlines, advisor messages, and 
-campus resources through an integrated interface and database-backed architecture. The 
-objective is to reduce fragmentation of academic information and maintain consistent availability 
-of essential student tools.
+CampusConnect is a student resource management system designed to centralize academic information, assignment tracking, campus communication, student-support services, and campus resources within one software environment. The system is intended to provide continuous access to course information, deadlines, advisor messages, announcements, and support resources. Its main objective is to reduce the fragmentation of academic information and maintain consistent access to essential student tools.
 
-Primary users include undergraduate students, academic advisors, and campus support 
-personnel. Students monitor coursework, store notes, and manage deadlines. Advisors 
-distribute announcements, provide guidance, and review student progress. Support staff publish 
-updates and maintain resource availability. All user groups interact with a standardized 
-interface, with access permissions determined by role classification.
+The primary users of CampusConnect are undergraduate students, academic advisors, and campus support personnel. Students will use the system to monitor coursework, review assignments, store personal notes, manage deadlines, receive messages, and locate campus resources. Advisors will distribute announcements, provide academic guidance, post reminders, and review student progress. Support staff will publish campus updates, maintain resource information, review support tickets, and monitor support-service activity. Access to system information and features will be determined by each user’s assigned role.
 
-CampusConnect is implemented using HTML, CSS, and JavaScript for interface components, 
-combined with a Python Flask backend and a MySQL relational database. This technology 
-stack was selected for reliability, compatibility, and ease of integration. Flask supports modular 
-web application development, while MySQL offers structured data storage, efficient querying, 
-and long-term scalability. JavaScript enables dynamic interface behavior, and HTML/CSS 
-ensure consistent rendering across devices.
+CampusConnect is being developed in phases. The first completed phase is a C++ customer-support prototype created using CLion and CMake. The prototype allows users to ask multiple questions during one session and receive responses about financial aid, admissions, registration, tutoring, login assistance, and password assistance. It also recognizes selected spelling mistakes. When the prototype cannot confidently answer a question, it collects the user’s name, generates a numbered support ticket, and stores the ticket in a text file. Support staff can use the staff command to view saved tickets.
 
-A dashboard-based interface displays course lists, assignment schedules, campus 
-announcements, and communication tools. Users authenticate, view deadlines, add notes, and 
-receive automated notifications. Advisors post updates, send reminders, and monitor 
-submissions. Interface components follow a predictable layout to support efficient navigation 
-and reduce cognitive load. CampusConnect incorporates a persistent database connection 
-storing user accounts, course information, assignments, messages, and resource metadata. 
-Each profile links to unique database entries, enabling individualized dashboards and accurate 
-tracking of academic activity. Data retrieval and modification occur through structured queries 
-managed by backend logic, ensuring integrity, secure access control, and continuous 
-availability.
+The C++ prototype demonstrates the planned support and escalation workflow, but it is not yet an actual artificial-intelligence system. It currently uses rule-based keyword matching. The final CampusAssist feature will be developed as a natural-language support assistant that searches school-approved information, provides relevant support guidance, and creates a support ticket when human assistance is required.
 
-Overall, CampusConnect delivers a centralized, structured solution for academic resource 
-management. By combining a stable interface with a reliable database architecture, the system 
-maintains consistent functionality, supports multiple user roles, and ensures essential academic 
-information remains accessible throughout the student lifecycle.
+The planned web application will use HTML, CSS, and JavaScript for its interface components, Python Flask for backend processing, and a MySQL relational database for structured storage. This technology stack was selected to support modular development, compatibility, database integration, and future expansion. JavaScript will provide dynamic interface behavior, while HTML and CSS will create a consistent and responsive layout across desktop and mobile devices.
+
+The planned dashboard interface will display course lists, assignment schedules, deadlines, campus announcements, messages, notifications, and support resources. Authenticated users will receive personalized information based on their accounts and assigned roles. Students will be able to view assignments and add notes. Advisors will be able to post reminders, send messages, and review student progress. Support staff will be able to publish alerts, manage resources, review tickets, update ticket statuses, and access support analytics.
+
+CampusConnect will use persistent database storage for user accounts, roles, courses, enrollments, assignments, notes, messages, announcements, notifications, campus resources, support tickets, and chat records. Each profile will be connected to the appropriate database records, allowing the application to produce individualized dashboards and accurately track academic and support activity. Backend logic will manage database retrieval and modification through secure, parameterized queries.
+
+Security will be addressed through password hashing, authenticated sessions, role-based access control, parameterized database operations, and HTTPS in the production environment. Students, advisors, and support staff will only be permitted to access the information and functions associated with their roles. Sensitive information, including real student records, passwords, API keys, and database credentials, will not be stored in the public GitHub repository.
+
+CampusConnect will also include a support analytics component. Authorized support staff will be able to review the number of open and closed tickets, common ticket categories, frequently asked questions, unanswered questions, and resource-usage patterns. These analytics will help staff identify information gaps and improve the availability of campus-support information.
+
+Overall, CampusConnect is intended to provide a centralized and structured solution for academic organization, campus communication, and student support. The completed C++ prototype establishes the initial customer-support and ticket-escalation workflow. The planned Flask and MySQL application will expand that work into a secure, responsive web platform with role-specific dashboards, academic-management tools, AI-assisted support, persistent database storage, and staff analytics.
