@@ -127,6 +127,20 @@ As support staff, I want to update resource information so that students have ac
 As a user, I want my dashboard to load personalized data so that I see information relevant to me.
 As a user, I want my changes saved to the database so that my information stays updated.
 
+AI Support Assistant
+The system must accept natural-language campus-support questions. The system must search school-approved information before generating a response. When the system cannot provide a sufficiently supported answer, it must create a support ticket for human assistance.
+
+Support-Ticket Management
+The system must generate unique ticket numbers. The system must record the requesting user, original question, creation time, category, and status. Authorized support staff must be able to view tickets and update ticket statuses.
+
+Support Analytics
+Authorized support staff must be able to view total tickets, open tickets, closed tickets, common ticket categories, frequently asked questions, and unanswered questions.
+
+Current Implementation Status
+The completed C++ prototype demonstrates multiple-question support, rule-based responses, selected typo recognition, support-ticket creation, text-file storage, and staff ticket viewing.
+
+The Flask website, MySQL database, secure authentication, role-based dashboards, natural-language AI integration, and analytics remain planned development work.
+
 
 
 
