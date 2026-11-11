@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}CampusConnect{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<nav>
+    <div class="brand">
+        <a href="{{ url_for('home') }}">CampusConnect</a>
+    </div>
+
+    <div class="nav-links">
+        <a href="{{ url_for('home') }}">Home</a>
+
+        {% if session.get("user_id") %}
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('support') }}">CampusAssist</a>
+
+        {% if session.get("role") == "Student" %}
+        <a href="{{ url_for('student_dashboard') }}">Student Tools</a>
+        {% elif session.get("role") == "Advisor" %}
+        <a href="{{ url_for('advisor_dashboard') }}">Advisor Tools</a>
+        {% elif session.get("role") == "Support Staff" %}
+        <a href="{{ url_for('staff_dashboard') }}">Staff Tools</a>
+        {% endif %}
+
+        <span class="welcome-text">
+                    Welcome, {{ session.get("full_name") }}
+                </span>
+        <a href="{{ url_for('logout') }}">Logout</a>
+        {% else %}
+        <a href="{{ url_for('login') }}">Login</a>
+        <a href="{{ url_for('register') }}">Register</a>
+        {% endif %}
+    </div>
+</nav>
+
+<main class="page-container">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="flash-message">{{ message }}</div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+</main>
+
+<footer>
+    <p>CampusConnect Student Resource Management and AI Support System</p>
+</footer>
+</body>
+</html>

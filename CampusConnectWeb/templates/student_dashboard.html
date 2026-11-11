@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}Student Dashboard | CampusConnect{% endblock %}
+
+{% block content %}
+<section class="dashboard-header">
+    <div>
+        <p class="eyebrow">Student dashboard</p>
+        <h1>Welcome, {{ session.get("full_name") }}</h1>
+        <p>Review academic information, resources, announcements, and support activity.</p>
+    </div>
+</section>
+
+<section class="dashboard-grid">
+    <article class="card">
+        <h2>My Courses</h2>
+        {% if courses %}
+        {% for course in courses %}
+        <div class="list-item">
+            <strong>{{ course.course_code }}</strong>
+            <span>{{ course.course_name }}</span>
+            <small>{{ course.instructor_name }} | {{ course.semester }}</small>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p>No courses are available yet.</p>
+        {% endif %}
+    </article>
+
+    <article class="card">
+        <h2>Upcoming Assignments</h2>
+        {% if assignments %}
+        {% for assignment in assignments %}
+        <div class="list-item">
+            <strong>{{ assignment.title }}</strong>
+            <span>{{ assignment.course_code }}</span>
+            <small>Due: {{ assignment.due_date or "Not assigned" }}</small>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p>No assignments are available yet.</p>
+        {% endif %}
+    </article>
+
+    <article class="card">
+        <h2>Campus Announcements</h2>
+        {% if announcements %}
+        {% for announcement in announcements %}
+        <div class="list-item">
+            <strong>{{ announcement.title }}</strong>
+            <span>{{ announcement.message }}</span>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p>No announcements have been posted.</p>
+        {% endif %}
+    </article>
+
+    <article class="card">
+        <h2>Campus Resources</h2>
+        {% if resources %}
+        {% for resource in resources %}
+        <div class="list-item">
+            <strong>{{ resource.title }}</strong>
+            <span>{{ resource.description }}</span>
+            <small>{{ resource.location }} | {{ resource.availability }}</small>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p>No resources are available.</p>
+        {% endif %}
+    </article>
+
+    <article class="card">
+        <h2>My Support Tickets</h2>
+        {% if tickets %}
+        {% for ticket in tickets %}
+        <div class="list-item">
+            <strong>Ticket #{{ ticket.ticket_id }} | {{ ticket.status }}</strong>
+            <span>{{ ticket.question }}</span>
+            <small>{{ ticket.category }} | {{ ticket.created_at }}</small>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p>You have not created any support tickets.</p>
+        {% endif %}
+    </article>
+
+    <article class="card action-card">
+        <h2>CampusAssist</h2>
+        <p>Ask a campus-support question or create a ticket when additional help is needed.</p>
+        <a class="button-link" href="{{ url_for('support') }}">Open CampusAssist</a>
+    </article>
+</section>
+{% endblock %}

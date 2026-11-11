@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Advisor Dashboard | CampusConnect{% endblock %}
+
+{% block content %}
+<section class="dashboard-header">
+    <div>
+        <p class="eyebrow">Advisor dashboard</p>
+        <h1>Welcome, {{ session.get("full_name") }}</h1>
+        <p>Review student information and publish academic guidance.</p>
+    </div>
+</section>
+
+<section class="dashboard-grid">
+    <article class="card">
+        <h2>Registered Students</h2>
+        {% if students %}
+        {% for student in students %}
+        <div class="list-item">
+            <strong>{{ student.full_name }}</strong>
+            <span>{{ student.email }}</span>
+            <small>Role: {{ student.role }}</small>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p>No student accounts are available.</p>
+        {% endif %}
+    </article>
+
+    <article class="card">
+        <h2>Courses</h2>
+        {% if courses %}
+        {% for course in courses %}
+        <div class="list-item">
+            <strong>{{ course.course_code }}</strong>
+            <span>{{ course.course_name }}</span>
+            <small>{{ course.instructor_name }} | {{ course.semester }}</small>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p>No courses are available.</p>
+        {% endif %}
+    </article>
+
+    <article class="card">
+        <h2>Post Announcement</h2>
+        <form method="POST" action="{{ url_for('advisor_dashboard') }}">
+            <label for="title">Announcement title</label>
+            <input id="title" name="title" type="text" required>
+
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+
+            <button type="submit">Publish Announcement</button>
+        </form>
+    </article>
+
+    <article class="card">
+        <h2>Recent Announcements</h2>
+        {% if announcements %}
+        {% for announcement in announcements %}
+        <div class="list-item">
+            <strong>{{ announcement.title }}</strong>
+            <span>{{ announcement.message }}</span>
+            <small>{{ announcement.created_at }}</small>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p>No announcements have been posted.</p>
+        {% endif %}
+    </article>
+</section>
+{% endblock %}

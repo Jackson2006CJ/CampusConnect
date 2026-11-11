@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}CampusAssist | CampusConnect{% endblock %}
+
+{% block content %}
+<section class="form-section">
+    <div class="form-card support-card">
+        <p class="eyebrow">CampusAssist</p>
+        <h1>How can CampusConnect help?</h1>
+        <p class="form-intro">
+            Ask about financial aid, admissions, registration, tutoring,
+            login assistance, or another campus-support need.
+        </p>
+
+        <form method="POST" action="{{ url_for('support') }}">
+            <label for="question">Campus-support question</label>
+            <textarea id="question" name="question" rows="5"
+                      placeholder="Example: Where can I find tutoring?" required></textarea>
+            <button type="submit">Ask CampusAssist</button>
+        </form>
+
+        {% if answer %}
+        <div class="support-response">
+            <h2>CampusAssist Response</h2>
+            <p>{{ answer }}</p>
+        </div>
+        {% endif %}
+
+        {% if ticket %}
+        <div class="ticket-confirmation">
+            <h2>Support Ticket Created</h2>
+            <p><strong>Ticket number:</strong> {{ ticket.ticket_id }}</p>
+            <p><strong>Category:</strong> {{ ticket.category }}</p>
+            <p><strong>Status:</strong> {{ ticket.status }}</p>
+            <p><strong>Question:</strong> {{ ticket.question }}</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

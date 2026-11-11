@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% block title %}Support Staff Dashboard | CampusConnect{% endblock %}
+
+{% block content %}
+<section class="dashboard-header">
+    <div>
+        <p class="eyebrow">Support staff dashboard</p>
+        <h1>Welcome, {{ session.get("full_name") }}</h1>
+        <p>Manage support tickets, campus resources, announcements, and support analytics.</p>
+    </div>
+</section>
+
+<section class="analytics-grid">
+    <article class="stat-card">
+        <span>Total Tickets</span>
+        <strong>{{ analytics.total_tickets }}</strong>
+    </article>
+    <article class="stat-card">
+        <span>New Tickets</span>
+        <strong>{{ analytics.new_tickets }}</strong>
+    </article>
+    <article class="stat-card">
+        <span>In Progress</span>
+        <strong>{{ analytics.in_progress }}</strong>
+    </article>
+    <article class="stat-card">
+        <span>Resolved</span>
+        <strong>{{ analytics.resolved }}</strong>
+    </article>
+</section>
+
+<section class="dashboard-grid">
+    <article class="card full-width-card">
+        <h2>Support Tickets</h2>
+        {% if tickets %}
+        {% for ticket in tickets %}
+        <div class="ticket-row">
+            <div>
+                <strong>Ticket #{{ ticket.ticket_id }} | {{ ticket.customer_name }}</strong>
+                <span>{{ ticket.question }}</span>
+                <small>{{ ticket.category }} | Created: {{ ticket.created_at }}</small>
+            </div>
+
+            <form method="POST"
+                  action="{{ url_for('update_ticket', ticket_id=ticket.ticket_id) }}">
+                <select name="status" aria-label="Ticket status">
+                    <option value="NEW" {% if ticket.status == "NEW" %}selected{% endif %}>NEW</option>
+                    <option value="IN_PROGRESS" {% if ticket.status == "IN_PROGRESS" %}selected{% endif %}>IN PROGRESS</option>
+                    <option value="RESOLVED" {% if ticket.status == "RESOLVED" %}selected{% endif %}>RESOLVED</option>
+                </select>
+                <button type="submit">Update</button>
+            </form>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p>No support tickets have been created.</p>
+        {% endif %}
+    </article>
+
+    <article class="card">
+        <h2>Add Campus Resource</h2>
+        <form method="POST" action="{{ url_for('staff_dashboard') }}">
+            <input type="hidden" name="form_type" value="resource">
+
+            <label for="resource_title">Resource title</label>
+            <input id="resource_title" name="title" type="text" required>
+
+            <label for="category">Category</label>
+            <input id="category" name="category" type="text" required>
+
+            <label for="description">Description</label>
+            <textarea id="description" name="description" rows="4" required></textarea>
+
+            <label for="location">Location</label>
+            <input id="location" name="location" type="text">
+
+            <label for="availability">Availability</label>
+            <input id="availability" name="availability" type="text">
+
+            <button type="submit">Add Resource</button>
+        </form>
+    </article>
+
+    <article class="card">
+        <h2>Publish Campus Update</h2>
+        <form method="POST" action="{{ url_for('staff_dashboard') }}">
+            <input type="hidden" name="form_type" value="announcement">
+
+            <label for="announcement_title">Announcement title</label>
+            <input id="announcement_title" name="title" type="text" required>
+
+            <label for="announcement_message">Message</label>
+            <textarea id="announcement_message" name="message" rows="5" required></textarea>
+
+            <button type="submit">Publish Update</button>
+        </form>
+    </article>
+
+    <article class="card">
+        <h2>Ticket Categories</h2>
+        {% if categories %}
+        {% for category in categories %}
+        <div class="list-item compact-item">
+            <strong>{{ category.category }}</strong>
+            <span>{{ category.ticket_count }} ticket(s)</span>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p>No category data is available.</p>
+        {% endif %}
+    </article>
+
+    <article class="card">
+        <h2>Campus Resources</h2>
+        {% if resources %}
+        {% for resource in resources %}
+        <div class="list-item">
+            <strong>{{ resource.title }}</strong>
+            <span>{{ resource.description }}</span>
+            <small>{{ resource.category }} | {{ resource.location }} | {{ resource.availability }}</small>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p>No campus resources are available.</p>
+        {% endif %}
+    </article>
+</section>
+{% endblock %}
